@@ -1,6 +1,20 @@
+import { Metadata } from "next"
+
+export const metadata = {
+  title:{
+    absolute:'blog',
+    template:"%s | Component",
+  },
+  description: 'Blog Page',
+}
+
 const blog = () => {
+
   return (
-    <div>blog Page</div>
+    <>
+    <h1>blog Page</h1>
+    
+    </>
   )
 }
 

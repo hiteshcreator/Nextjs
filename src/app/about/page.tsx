@@ -1,6 +1,15 @@
+"use client"
+import { useRouter } from "next/navigation";
+
 const about = () => {
+  const router = useRouter();
+
   return (
-    <div>about Page</div>
+    <>
+    <h1>about Page</h1>
+    
+    <span onClick={()=>router.push("/")}>Home</span>
+    </>
   )
 }
 
