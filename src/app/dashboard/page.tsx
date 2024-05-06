@@ -39,7 +39,7 @@ const Dashboard = async() => {
     <div className="sm:container sm:mx-auto ">
 
     <h1>Dashboard</h1>
-    {/* {todo !==undefined ? [todo].map((post:any,i:number)=>(     
+    {todo !==undefined ? [todo].map((post:any,i:number)=>(     
       <>
       <ul key={i}>
       <li>{post?.title}hello</li>
@@ -49,7 +49,7 @@ const Dashboard = async() => {
       
 
     )):"dd"
-    } */}
+    }
     </div>
     </>
   )

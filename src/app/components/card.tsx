@@ -6,9 +6,9 @@ const Card = ({ children }: { children: React.ReactNode} ) => {
             <div className="font-bold text-xl mb-2">
                 The Coldest Sunset
             </div>
-            <p className="text-gray-700 text-base">
+            <div className="text-gray-700 text-base">
                 {children}
-            </p>
+            </div>
         </div>
     </div>
     
