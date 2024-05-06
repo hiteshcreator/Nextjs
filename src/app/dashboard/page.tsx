@@ -28,7 +28,8 @@ const Dashboard = async() => {
   //    console.log("response",todo)
   //   // return todo;
   // }
-  jwt.sign({ data: todo }, process.env.JWT_PRIVATE_KEY,  function(err:any, token:any) {
+  const privateKey:any = process.env.JWT_PRIVATE_KEY
+  jwt.sign({ data: todo }, privateKey,  function(err:any, token:any) {
     console.log(token,err);
   });
   console.log("jwt ",process.env.JWT_PRIVATE_KEY)
@@ -38,7 +39,7 @@ const Dashboard = async() => {
     <div className="sm:container sm:mx-auto ">
 
     <h1>Dashboard</h1>
-    {todo !==undefined ? [todo].map((post:any,i:number)=>(     
+    {/* {todo !==undefined ? [todo].map((post:any,i:number)=>(     
       <>
       <ul key={i}>
       <li>{post?.title}hello</li>
@@ -48,7 +49,7 @@ const Dashboard = async() => {
       
 
     )):"dd"
-    }
+    } */}
     </div>
     </>
   )
