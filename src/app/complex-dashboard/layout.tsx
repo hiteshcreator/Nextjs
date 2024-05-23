@@ -26,7 +26,7 @@ export default function RootLayout({
                   <div>{users}</div>    
               </div>
 
-              <div style={{display:"flex"}}>
+              <div style={{display:"flex",flex:1}}>
                   <div>{notification}</div>
                   <div>{logins}</div>
               </div>
