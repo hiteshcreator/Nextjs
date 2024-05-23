@@ -1,14 +1,14 @@
 "use client"
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const about = () => {
-  const router = useRouter();
+  // const router = useRouter();
 
   return (
     <>
     <h1>about Page</h1>
     
-    <span onClick={()=>router.push("/")}>Home</span>
+    <span><Link href="/">Home</Link></span>
     </>
   )
 }

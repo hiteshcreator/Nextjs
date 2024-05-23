@@ -1,11 +1,10 @@
 "use client"
-import React, { useEffect,useState } from 'react';
-import useDrivePicker from 'react-google-drive-picker'
+import React from 'react';
+import UseDrivePicker from 'react-google-drive-picker'
 
 const googleDrive = () => {
 
-    const [authTocken, setauthTocken] = useState("");
-    const [openPicker, authResponse] = useDrivePicker();  
+    const [openPicker, authResponse] = UseDrivePicker();  
 
     const ClientKey:any =  process?.env?.NEXT_PUBLIC_CLIENT_KEY;
     const APIKey:any =  process?.env?.NEXT_PUBLIC_API_KEY;
@@ -31,12 +30,10 @@ const googleDrive = () => {
         })
     }
 
-    useEffect(() => {
         if (authResponse) {
-        //   setauthTocken(authResponse.access_token);
-          console.log("token--",authResponse.access_token)
+           console.log("token--",authResponse.access_token)
         }
-      }, [authResponse]);
+      
 
   return (
     <div>
