@@ -15,7 +15,7 @@ const googleDrive = () => {
         clientId:ClientKey,
         developerKey: APIKey,
         viewId: "DOCS",
-        token: Token, // pass oauth token in case you already have one
+        // token: Token, // pass oauth token in case you already have one
         showUploadView: true,
         showUploadFolders: true,
         supportDrives: true,
