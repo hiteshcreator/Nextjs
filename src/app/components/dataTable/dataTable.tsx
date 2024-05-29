@@ -7,32 +7,121 @@ const CustomDataTable = () => {
 
     const [data, setData] = useState<any>(null);
     const [selectedRows,setSelectedRows] = useState([]);
+    const [error, setError] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [items, setItems] = useState([]);
+    const [totalRows, setTotalRows] = useState(0);
+    const [perPage, setPerPage] = useState(10);
 
-    const columns = useMemo(() => [
+
+    const columns = useMemo(()=>[
         {
-            name: 'Title',
-            selector: (row:any) => row.title,
+            name: 'userId',
+            selector: row => row.userId,
+            width: '100px'
         },
         {
-            name: 'Year',
-            selector: (row) => row.year,
+            name: 'id',
+            selector: row => row.id,
+            width: '200px'
         },
-    ], []);
+        {
+            name: 'title',
+            selector: row => row.title,
+            width: '200px'
+        },
+        {
+            name: 'body',
+            selector: row => row.body,
+            width: '500px'
+        },
+      ],[]);
     
 
     useEffect(() => {
-        console.log('Data fetched:', dataVal);
-        setData(dataVal);
-    }, []);
+        fetchData(1, perPage);
+      }, [perPage])
+    
+    const fetchData = async (page, per_page) => {
+        fetch(`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=${per_page}`)
+            .then(res => res.json())
+            .then(
+            (result) => {
+                setIsLoaded(true);
+                // console.log("result",result)
+                setItems(result);
+                setTotalRows(100);
+            },
+            (error) => {
+                // console.log("error",error)
+                setIsLoaded(true);
+                setError(error);
+            }
+        )
+    }
 
-    const handleChange = useCallback(({ selectedRows }:any) => {
-        console.log('Selected Rows: ', selectedRows);
-        setSelectedRows(selectedRows);
-    }, []);      
+    const handlePageChange = page => {
+        console.log("page--",page)
+        fetchData(page, perPage);
+    }
+
+    const handlePerRowsChange = async (newPerPage, page) => {
+        setPerPage(newPerPage);
+    }
+
+    // const handleChange = useCallback(({ selectedRows }:any) => {
+    //     console.log('Selected Rows: ', selectedRows);
+    //     setSelectedRows(selectedRows);
+    // }, []);    
+    
+    const handleChange = useCallback(({ selectedRows }) => {
+        const selectedRowIds = selectedRows.map(row => row.id);
+        setSelectedRows(prevSelectedRows => {
+            const filteredSelectedRows = prevSelectedRows.filter(row => !selectedRowIds.includes(row.id));
+            return [...filteredSelectedRows, ...selectedRows];
+        });
+    }, []);
+    
+    const conditionalRowStyles = useMemo(() => [
+        {
+            when: row => selectedRows.some(selectedRow => selectedRow.id === row.id),
+            style: {
+                backgroundColor: 'rgba(0, 0, 255, 0.1)',
+            },
+        },
+    ], [selectedRows]);
+
+    const selectableRowSelected = useCallback(row => selectedRows.some(selectedRow => selectedRow.id === row.id), [selectedRows]);
+    
     
   return (
     <>
+        {items && items.length > 0 ? 
+        
         <DataTable
+            columns={columns}
+            data={items}
+            pagination
+            paginationServer
+            selectableRows
+            paginationPerPage={10}
+            paginationTotalRows={totalRows}
+            selectableRowSelected={selectableRowSelected}
+            onSelectedRowsChange={handleChange}
+            onChangePage={handlePageChange}
+            onChangeRowsPerPage={handlePerRowsChange}
+            conditionalRowStyles={conditionalRowStyles}
+            selectableRowsHighlight
+            highlightOnHover
+        />
+        :"loading..."}
+    </>
+  )
+}
+
+export default CustomDataTable
+
+        {/* <DataTable
 			columns={columns}
 			data={dataVal}
             pagination
@@ -40,10 +129,20 @@ const CustomDataTable = () => {
             paginationPerPage={4}
             // selectableRowSelected={isRowSelected}
             onSelectedRowsChange={handleChange}
-		/>
-    
-    </>
-  )
-}
+		/> */}
 
-export default CustomDataTable
+
+    // const columns = useMemo(() => [
+    //     {
+    //         name: 'Title',
+    //         selector: (row:any) => row.title,
+    //     },
+    //     {
+    //         name: 'Year',
+    //         selector: (row) => row.year,
+    //     },
+    // ], []);
+    // useEffect(() => {
+    //     console.log('Data fetched:', dataVal);
+    //     setData(dataVal);
+    // }, []);
