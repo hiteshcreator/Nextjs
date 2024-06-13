@@ -17,7 +17,7 @@ const CustomDataTable = () => {
     const columns = useMemo(()=>[
         {
             name: 'userId',
-            selector: row => row.userId,
+            selector: (row:any) => row.userId,
             width: '100px'
         },
         {
@@ -42,7 +42,7 @@ const CustomDataTable = () => {
         fetchData(1, perPage);
       }, [perPage])
     
-    const fetchData = async (page, per_page) => {
+    const fetchData = async (page:any, per_page:any) => {
         fetch(`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=${per_page}`)
             .then(res => res.json())
             .then(
@@ -60,12 +60,12 @@ const CustomDataTable = () => {
         )
     }
 
-    const handlePageChange = page => {
+    const handlePageChange = (page:any) => {
         console.log("page--",page)
         fetchData(page, perPage);
     }
 
-    const handlePerRowsChange = async (newPerPage, page) => {
+    const handlePerRowsChange = async (newPerPage:any, page:any) => {
         setPerPage(newPerPage);
     }
 
@@ -74,24 +74,24 @@ const CustomDataTable = () => {
     //     setSelectedRows(selectedRows);
     // }, []);    
     
-    const handleChange = useCallback(({ selectedRows }) => {
-        const selectedRowIds = selectedRows.map(row => row.id);
+    const handleChange = useCallback(({ selectedRows }:any) => {
+        const selectedRowIds = selectedRows.map((row:any) => row.id);
         setSelectedRows(prevSelectedRows => {
-            const filteredSelectedRows = prevSelectedRows.filter(row => !selectedRowIds.includes(row.id));
+            const filteredSelectedRows = prevSelectedRows.filter((row:any) => !selectedRowIds.includes(row.id));
             return [...filteredSelectedRows, ...selectedRows];
         });
     }, []);
     
     const conditionalRowStyles = useMemo(() => [
         {
-            when: row => selectedRows.some(selectedRow => selectedRow.id === row.id),
+            when: (row:any) => selectedRows.some((selectedRow:any) => selectedRow.id === row.id),
             style: {
                 backgroundColor: 'rgba(0, 0, 255, 0.1)',
             },
         },
     ], [selectedRows]);
 
-    const selectableRowSelected = useCallback(row => selectedRows.some(selectedRow => selectedRow.id === row.id), [selectedRows]);
+    const selectableRowSelected = useCallback((row:any) => selectedRows.some((selectedRow:any) => selectedRow.id === row.id), [selectedRows]);
     
     
   return (
