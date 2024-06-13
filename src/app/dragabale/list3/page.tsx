@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import '../app.css';
+import '../styles.css';
 
 const finalSpaceCharacters = [
   {
