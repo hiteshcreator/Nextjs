@@ -6,7 +6,7 @@ import {dataVal} from "./data.js"
 const CustomDataTable = () => {
 
     const [data, setData] = useState<any>(null);
-    const [selectedRows,setSelectedRows] = useState([]);
+    const [selectedRows,setSelectedRows] = useState<any>([]);
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
@@ -76,8 +76,8 @@ const CustomDataTable = () => {
     
     const handleChange = useCallback(({ selectedRows }:any) => {
         const selectedRowIds = selectedRows.map((row:any) => row.id);
-        setSelectedRows(prevSelectedRows => {
-            const filteredSelectedRows = prevSelectedRows.filter((row:any) => !selectedRowIds.includes(row.id));
+        setSelectedRows((prevSelectedRows: { id: string }[]) => {
+            const filteredSelectedRows = prevSelectedRows.filter((row: { id: string }) => !selectedRowIds.includes(row.id));
             return [...filteredSelectedRows, ...selectedRows];
         });
     }, []);
